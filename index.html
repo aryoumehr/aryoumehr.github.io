@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#317EFB">
+
+  <!-- Link to Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Favicon Icon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <title>Aryoumehr</title>
+</head>
+<body>
+  <main>
+    <h1>Aryoumehr</h1>
+    <p>Your website is now ready as a PWA.</p>
+
+    <!-- دکمه نصب که تنها زمانی نمایش داده می‌شود که PWA نصب‌پذیر باشد -->
+    <button id="installBtn" style="display: none;" aria-label="Install App">Install App</button>
+
+  </main>
+
+  <!-- External Script -->
+  <script src="app.js"></script>
+
+  <script>
+    // ثبت سرویس‌ورکر
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log("Service worker registered"))
+        .catch(err => console.error("Service worker registration failed: ", err));
+    }
+
+    let deferredPrompt;
+
+    // رویداد قبل از نصب
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault(); // جلوگیری از نمایش دیالوگ پیش‌فرض نصب
+      deferredPrompt = e; // ذخیره رویداد نصب
+
+      // نمایش دکمه نصب
+      const installBtn = document.getElementById('installBtn');
+      installBtn.style.display = 'block'; // نمایش دکمه نصب
+
+      // نصب اپلیکیشن زمانی که دکمه نصب کلیک شد
+      installBtn.addEventListener('click', () => {
+        installBtn.disabled = true; // جلوگیری از کلیک دوباره روی دکمه
+        deferredPrompt.prompt(); // نمایش پنجره نصب
+
+        // پس از انتخاب کاربر، رویداد نصب را مدیریت می‌کنیم
+        deferredPrompt.userChoice
+          .then((choiceResult) => {
+            console.log(`User choice: ${choiceResult.outcome}`);
+            if (choiceResult.outcome === 'accepted') {
+              // دکمه نصب مخفی می‌شود پس از نصب
+              installBtn.style.display = 'none';
+            }
+            deferredPrompt = null; // حذف رویداد نصب بعد از انتخاب کاربر
+          })
+          .catch((err) => {
+            console.error('Install prompt failed', err);
+            installBtn.style.display = 'none'; // مخفی کردن دکمه نصب در صورت خطا
+          });
+      });
+    });
+
+    // بررسی نصب شدن در مرورگر
+    window.addEventListener('appinstalled', (evt) => {
+      console.log('PWA was installed');
+      // در اینجا می‌توانید کارهای دیگری انجام دهید، مثلاً مخفی کردن دکمه نصب
+      const installBtn = document.getElementById('installBtn');
+      installBtn.style.display = 'none';
+    });
+  </script>
+</body>
+</html>

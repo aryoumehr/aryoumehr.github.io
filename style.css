@@ -1,0 +1,46 @@
+/* تنظیمات کلی صفحه */
+body {
+  font-family: 'Roboto', sans-serif; /* استفاده از فونت بهتر */
+  text-align: center;
+  margin-top: 5rem;
+  background: #f9f9f9;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* طراحی دکمه نصب */
+button {
+  background: #317EFB;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease; /* انیمیشن نرم برای تغییرات */
+}
+
+/* تغییرات رنگ و سایه برای دکمه در هنگام هاور */
+button:hover {
+  background: #2557a7; /* رنگ دکمه در زمان هاور */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* سایه برای برجسته کردن دکمه */
+}
+
+/* طراحی صفحه برای موبایل و دستگاه‌های کوچک */
+@media (max-width: 600px) {
+  body {
+    margin-top: 3rem; /* فاصله بالای صفحه برای موبایل */
+  }
+  button {
+    font-size: 0.9rem; /* اندازه فونت دکمه برای صفحه‌های کوچک */
+    padding: 0.8rem 1.6rem; /* کمی کوچکتر کردن دکمه */
+  }
+}
+
+/* افزودن فونت از Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
