@@ -1,7 +1,7 @@
 {
-  "name": "86400s",
-  "short_name": "86400s",
-  "id": "86400s-app-v3",
+  "name": "Aryoumehr",
+  "short_name": "Aryoumehr",
+  "id": "aryoumehr-app-v3",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -27,17 +27,17 @@
   "related_applications": [
     {
       "platform": "webapp",
-      "url": "https://86400s.ir/manifest.json"
+      "url": "https://aryoumehr.ir/manifest.json"
     }
   ],
   "scope_extensions": [
     {
-      "origin": "https://*.86400s.ir"
+      "origin": "https://*.aryoumehr.ir"
     }
   ],
   "protocol_handlers": [
     {
-      "protocol": "web+86400s",
+      "protocol": "web+aryoumehr",
       "url": "/protocol-handler?url=%s"
     }
   ],
@@ -135,7 +135,7 @@
       "purpose": "maskable"
     },
     {
-      "src": "https://86400s.ir/assets/monochrome_icon_x512.png",
+      "src": "https://aryoumehr.ir/assets/monochrome_icon_x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "monochrome"
