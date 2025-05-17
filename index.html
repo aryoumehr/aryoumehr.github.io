@@ -17,11 +17,11 @@
 
     <style>
         :root {
-          --primary-color: #ae8226;
-          --secondary-color: #ae8226;
-          --accent-color: #ae8226;
-          --text-color: #f8fafc;
-          --card-bg: rgba(255, 255, 255, 0.1);
+            --primary-color: #ae8226;
+            --secondary-color: #ae8226;
+            --accent-color: #ae8226;
+            --text-color: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.1);
         }
         
         body {
@@ -183,13 +183,14 @@
             margin-bottom: 0.3rem;
         }
     </style>
+
 </head>
 <body>
     <div class="offline-container">
         <img src="/favicon.ico" alt="Aryoumehr" class="logo">
         <h1>Aryoumehr</h1>
         <p>WP Full-Stack Dev | PWA Specialist | Service Worker Architect | Building scalable, installable web apps with zero-plugin architecture. Founder of xwordpress.</p>
-        
+
         <div class="button-group">
             <button class="btn btn-primary" onclick="window.open('https://instagram.com/aryoumehr', '_self')">
                 <!-- Instagram SVG Icon -->
@@ -202,44 +203,36 @@
                 Instagram Page
             </button>
 
-            <!-- Email Button -->
-            <button class="btn btn-primary" onclick="window.location.href='mailto:your-email@example.com'">
-                <!-- Email SVG Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 13.3l11-8V3h-22v2.3l11 8 11-8z"></path>
-                    <path d="M2 18v2h20v-2H2z"></path>
+            <button class="btn btn-secondary" id="retry-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 4v6h-6"></path>
+                    <path d="M1 20v-6h6"></path>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
                 </svg>
-                Email Us
+                Retry Connection
             </button>
-
-            <!-- Message Button -->
-            <button class="btn btn-primary" onclick="window.location.href='sms:+1234567890'">
-                <!-- Message SVG Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3 3h18v18H3V3z" opacity=".3"/>
-                    <path d="M3 1h18c1.1 0 1.99.89 1.99 1.99L23 21c0 1.1-.89 1.99-1.99 1.99H2c-1.1 0-1.99-.89-1.99-1.99L1 3C1 1.9.89 1 2 1zm0 18h18V4H3v15z"/>
-                </svg>
-                Message Us
-            </button>
-
-            <!-- Install App Button -->
-            <button class="btn btn-primary" onclick="promptInstall()">
-                <!-- Install App SVG Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2v10.1c0 .7.7 1.3 1.4 1.3s1.4-.6 1.4-1.3V2h4c1.1 0 2-.9 2-2s-.9-2-2-2h-6c-1.1 0-2 .9-2 2s.9 2 2 2h4zm0 16.9c-.7 0-1.4.6-1.4 1.3V22h-4c-1.1 0-2 .9-2 2s.9 2 2 2h6c1.1 0 2-.9 2-2s-.9-2-2-2h-4zm-2.4-1.3c0-.7-.7-1.3-1.4-1.3s-1.4.6-1.4 1.3v4c0 .7.7 1.3 1.4 1.3s1.4-.6 1.4-1.3v-4z"/>
-                </svg>
-                Install App
-            </button>
-
         </div>
-        
-        <div id="connection-status" class="offline">
+
+        <div class="button-horizontal">
+            <a href="sms:+989306901298" style="text-decoration: none; width: 48%;">
+                <button class="btn btn-primary">
+                    Message
+                </button>
+            </a>
+            <a href="mailto:aryoumehr@gmail.com" style="text-decoration: none; width: 48%;">
+                <button class="btn btn-primary">
+                    E-mail
+                </button>
+            </a>
+        </div>
+
+        <div id="connection-status">
             <span class="status-icon"></span>
-            <span>You're currently offline</span>
+            <span>No internet connection detected</span>
         </div>
 
         <div class="offline-features">
-            <h3>What's available:</h3>
+            <h3>What's available online:</h3>
             <ul>
                 <li>Your saved articles</li>
                 <li>Previous app content</li>
@@ -250,59 +243,102 @@
     </div>
 
     <script>
-        // Connection status
+        // Enhanced Connection Monitoring
         function updateConnectionStatus() {
-            const statusElement = document.getElementById('connection-status');
+            const statusEl = document.getElementById('connection-status');
+            const statusText = statusEl.querySelector('span:last-child');
+            const statusIcon = statusEl.querySelector('.status-icon');
             const retryBtn = document.getElementById('retry-btn');
-
+            
             if (navigator.onLine) {
-                statusElement.classList.remove('offline');
-                statusElement.classList.add('online');
+                statusEl.classList.add('online');
+                statusText.textContent = 'Connection restored!';
+                statusIcon.style.background = '#10b981';
                 retryBtn.style.display = 'none';
             } else {
-                statusElement.classList.remove('online');
-                statusElement.classList.add('offline');
-                retryBtn.style.display = 'block';
+                statusEl.classList.remove('online');
+                statusText.textContent = 'No internet connection detected';
+                statusIcon.style.background = '#ef4444';
+                retryBtn.style.display = 'flex';
             }
         }
 
+        // Initial check
+        updateConnectionStatus();
+        
+        // Event listeners for connection changes
         window.addEventListener('online', updateConnectionStatus);
         window.addEventListener('offline', updateConnectionStatus);
-
-        // Initialize connection status
-        updateConnectionStatus();
-
-        // Retry connection (reload the page)
-        document.getElementById('retry-btn').addEventListener('click', function() {
-            window.location.reload();
+        
+        // Retry button functionality
+        document.getElementById('retry-btn').addEventListener('click', () => {
+            const statusEl = document.getElementById('connection-status');
+            const statusText = statusEl.querySelector('span:last-child');
+            
+            statusText.textContent = 'Checking connection...';
+            
+            fetch('/?connection-test=1', {
+                method: 'HEAD',
+                cache: 'no-store'
+            }).catch(() => {}).finally(() => {
+                setTimeout(updateConnectionStatus, 1000);
+            });
         });
 
-        // Prompt for PWA installation
+       // PWA installation prompt
         let deferredPrompt;
+        const installButton = document.createElement('button');
+        installButton.className = 'btn btn-secondary';
+        installButton.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 19v-7m0 0V5m0 7H5m7 0h7"></path>
+            </svg>
+            Install App
+        `;
+        installButton.style.display = 'none';
+        installButton.addEventListener('click', installPWA);
+        document.querySelector('.button-group').appendChild(installButton);
+
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
+            installButton.style.display = 'flex';
+            
+            setTimeout(() => {
+                if (installButton.style.display !== 'none') {
+                    installButton.style.display = 'none';
+                }
+            }, 30000);
         });
 
-        function promptInstall() {
+        function installPWA() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the A2HS prompt');
+                        console.log('User accepted the install prompt');
                     } else {
-                        console.log('User dismissed the A2HS prompt');
+                        console.log('User dismissed the install prompt');
                     }
+                    deferredPrompt = null;
+                    installButton.style.display = 'none';
                 });
             }
         }
 
-        // Add install button logic if needed (e.g., after a delay or specific interaction)
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                promptInstall();
-            }, 3000); // Prompt install after 3 seconds
-        });
+        // Service Worker registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
     </script>
+
 </body>
 </html>
