@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow">
     <title>Aryoumehr</title>
     <meta name="description" content="WP Full-Stack Dev | PWA Specialist | Service Worker Architect | Building scalable, installable web apps with zero-plugin architecture. Founder of xwordpress.">
 
@@ -184,6 +184,11 @@
         .offline-features li {
             margin-bottom: 0.3rem;
         }
+
+        /* Ensure "Install Android App" button takes up 100% width */
+        .btn.install-android {
+            width: 100% !important;
+        }
     </style>
 
 </head>
@@ -216,21 +221,14 @@
         </div>
 
         <div class="button-horizontal">
-            <a href="sms:+989306901298" style="text-decoration: none; width: 48%;">
-                <button class="btn btn-primary">
-                    Message
-                </button>
-            </a>
-            <a href="mailto:aryoumehr@gmail.com" style="text-decoration: none; width: 48%;">
-                <button class="btn btn-primary">
-                    E-mail
-                </button>
-            </a>
+            <a href="sms:+989306901298" style="text-decoration: none; width: 48%;"><button class="btn btn-primary">Message</button></a>
+            <a href="mailto:aryoumehr@gmail.com" style="text-decoration: none; width: 48%;"><button class="btn btn-primary">E-mail</button></a>
         </div>
 
+        <!-- Button for Installing Android App -->
         <div class="button-horizontal">
-            <a href="https://aryoumehr.ir/path/to/android/aryoumehr.apk" style="text-decoration: none; width: 48%;">
-                <button class="btn btn-primary">
+            <a href="https://aryoumehr.ir/path/to/android/aryoumehr.apk" style="text-decoration: none; width: 100%;">
+                <button class="btn btn-primary install-android">
                     Install Android App
                 </button>
             </a>
