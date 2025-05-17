@@ -15,6 +15,58 @@
   <link rel="stylesheet" href="style.css">
 
   <title>Aryoumehr</title>
+  
+  <style>
+    /* Basic CSS to style the page */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    main {
+      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h1 {
+      color: #317EFB;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    /* Style for the install button */
+    #installBtn {
+      background-color: #317EFB;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: none;
+      transition: background-color 0.3s ease;
+    }
+
+    #installBtn:hover {
+      background-color: #255a8a;
+    }
+  </style>
 </head>
 <body>
   <main>
@@ -22,8 +74,7 @@
     <p>Your website is now ready as a PWA.</p>
 
     <!-- دکمه نصب که تنها زمانی نمایش داده می‌شود که PWA نصب‌پذیر باشد -->
-    <button id="installBtn" style="display: none;" aria-label="Install App">Install App</button>
-
+    <button id="installBtn" aria-label="Install App">Install App</button>
   </main>
 
   <!-- External Script -->
@@ -33,8 +84,12 @@
     // ثبت سرویس‌ورکر
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log("Service worker registered"))
-        .catch(err => console.error("Service worker registration failed: ", err));
+        .then(() => {
+          console.log("Service worker registered successfully.");
+        })
+        .catch(err => {
+          console.error("Service worker registration failed: ", err);
+        });
     }
 
     let deferredPrompt;
@@ -46,7 +101,7 @@
 
       // نمایش دکمه نصب
       const installBtn = document.getElementById('installBtn');
-      installBtn.style.display = 'block'; // نمایش دکمه نصب
+      installBtn.style.display = 'inline-block'; // نمایش دکمه نصب
 
       // نصب اپلیکیشن زمانی که دکمه نصب کلیک شد
       installBtn.addEventListener('click', () => {
@@ -73,7 +128,7 @@
     // بررسی نصب شدن در مرورگر
     window.addEventListener('appinstalled', (evt) => {
       console.log('PWA was installed');
-      // در اینجا می‌توانید کارهای دیگری انجام دهید، مثلاً مخفی کردن دکمه نصب
+      // دکمه نصب مخفی می‌شود
       const installBtn = document.getElementById('installBtn');
       installBtn.style.display = 'none';
     });
