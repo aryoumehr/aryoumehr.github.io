@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aryoumehr-cache-v2'; // تغییر نسخه کش برای بروزرسانی
+const CACHE_NAME = 'aryoumehr-cache-v3'; // به‌روزرسانی نسخه کش
 const urlsToCache = [
   '/',
   '/index.html',
@@ -23,26 +23,32 @@ const urlsToCache = [
 
 // نصب سرویس‌ورکر
 self.addEventListener('install', event => {
+  console.log('[Service Worker] Installing...');
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
+      .then(cache => {
+        console.log('[Service Worker] Caching essential files');
+        return cache.addAll(urlsToCache);
+      })
       .then(() => self.skipWaiting()) // فوراً سرویس‌ورکر جدید فعال بشه
   );
 });
 
 // فعال کردن سرویس‌ورکر جدید
 self.addEventListener('activate', event => {
+  console.log('[Service Worker] Activating...');
   const cacheWhitelist = [CACHE_NAME]; // فقط از کش جدید استفاده می‌کنیم
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (!cacheWhitelist.includes(cacheName)) {
+            console.log('[Service Worker] Deleting old cache:', cacheName);
             return caches.delete(cacheName); // کش‌های قدیمی حذف می‌شوند
           }
         })
       );
-    })
+    }).then(() => self.clients.claim()) // این خط برای همگام‌سازی سریعتر با صفحات باز
   );
 });
 
@@ -52,19 +58,22 @@ self.addEventListener('fetch', event => {
     caches.match(event.request).then(response => {
       // اگر فایل در کش موجود باشد، آن را برگردانیم
       if (response) {
+        console.log('[Service Worker] Returning from cache:', event.request.url);
         return response;
       }
 
-      // برای درخواست‌های پویا از شبکه اول استفاده می‌کنیم
+      // برای درخواست‌های پویا از شبکه استفاده می‌کنیم
       return fetch(event.request).then(fetchResponse => {
         // اگر پاسخ دریافت شد، آن را کش می‌کنیم
         return caches.open(CACHE_NAME).then(cache => {
+          console.log('[Service Worker] Caching new resource:', event.request.url);
           cache.put(event.request, fetchResponse.clone());
           return fetchResponse;
         });
       }).catch(() => {
         // در صورت آفلاین بودن، صفحه آفلاین را نمایش می‌دهیم
         if (event.request.mode === 'navigate') {
+          console.log('[Service Worker] Showing offline page');
           return caches.match('offline.html');
         }
       });
@@ -76,13 +85,12 @@ self.addEventListener('fetch', event => {
 self.addEventListener('sync', event => {
   if (event.tag === 'background-sync') {
     event.waitUntil(
-      // کد مربوط به همگام‌سازی پس‌زمینه
       fetch('/api/sync')
         .then(response => response.json())
         .then(data => {
-          console.log('Data synced:', data);
+          console.log('[Service Worker] Data synced:', data);
         })
-        .catch(err => console.log('Background sync failed:', err))
+        .catch(err => console.log('[Service Worker] Background sync failed:', err))
     );
   }
 });
@@ -91,20 +99,19 @@ self.addEventListener('sync', event => {
 self.addEventListener('periodicsync', event => {
   if (event.tag === 'periodic-sync') {
     event.waitUntil(
-      // کد مربوط به همگام‌سازی دوره‌ای
       fetch('/api/periodic-sync')
         .then(response => response.json())
         .then(data => {
-          console.log('Periodic data synced:', data);
+          console.log('[Service Worker] Periodic data synced:', data);
         })
-        .catch(err => console.log('Periodic sync failed:', err))
+        .catch(err => console.log('[Service Worker] Periodic sync failed:', err))
     );
   }
 });
 
 // اطلاع‌رسانی‌های پوش (Push Notifications)
 self.addEventListener('push', event => {
-  let options = {
+  const options = {
     body: event.data ? event.data.text() : 'You have a new message.',
     icon: 'assets/pwa/icon-192x192.png',
     badge: 'assets/pwa/icon-72x72.png'
