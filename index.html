@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="index, follow">
     <title>Aryoumehr</title>
     <meta name="description" content="WP Full-Stack Dev | PWA Specialist | Service Worker Architect | Building scalable, installable web apps with zero-plugin architecture. Founder of xwordpress.">
 
@@ -24,7 +25,7 @@
             --text-color: #f8fafc;
             --card-bg: rgba(255, 255, 255, 0.1);
         }
-        
+
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -227,6 +228,14 @@
             </a>
         </div>
 
+        <div class="button-horizontal">
+            <a href="https://aryoumehr.ir/path/to/android/aryoumehr.apk" style="text-decoration: none; width: 48%;">
+                <button class="btn btn-primary">
+                    Install Android App
+                </button>
+            </a>
+        </div>
+
         <div id="connection-status">
             <span class="status-icon"></span>
             <span>No internet connection detected</span>
@@ -286,7 +295,7 @@
             });
         });
 
-       // PWA installation prompt
+        // PWA installation prompt
         let deferredPrompt;
         const installButton = document.createElement('button');
         installButton.className = 'btn btn-secondary';
