@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aryoumehr-cache-v3'; // به‌روزرسانی نسخه کش
+const CACHE_NAME = 'aryoumehr-app-v3'; // به‌روزرسانی نسخه کش
 const urlsToCache = [
   '/',
   '/index.html',
@@ -18,7 +18,7 @@ const urlsToCache = [
   'assets/screenshots/1.png',
   'assets/screenshots/2.png',
   'assets/screenshots/3.png',
-  'offline.html' // افزودن صفحه آفلاین به کش
+  'offline.html' // صفحه آفلاین
 ];
 
 // نصب سرویس‌ورکر
@@ -91,20 +91,6 @@ self.addEventListener('sync', event => {
           console.log('[Service Worker] Data synced:', data);
         })
         .catch(err => console.log('[Service Worker] Background sync failed:', err))
-    );
-  }
-});
-
-// پشتیبانی از همگام‌سازی دوره‌ای (Periodic Sync)
-self.addEventListener('periodicsync', event => {
-  if (event.tag === 'periodic-sync') {
-    event.waitUntil(
-      fetch('/api/periodic-sync')
-        .then(response => response.json())
-        .then(data => {
-          console.log('[Service Worker] Periodic data synced:', data);
-        })
-        .catch(err => console.log('[Service Worker] Periodic sync failed:', err))
     );
   }
 });
