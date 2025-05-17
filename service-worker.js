@@ -85,15 +85,32 @@ self.addEventListener('fetch', event => {
 self.addEventListener('sync', event => {
   if (event.tag === 'background-sync') {
     event.waitUntil(
-      fetch('/api/sync')
-        .then(response => response.json())
-        .then(data => {
-          console.log('[Service Worker] Data synced:', data);
-        })
-        .catch(err => console.log('[Service Worker] Background sync failed:', err))
+      syncData()
     );
   }
 });
+
+// تابع همگام‌سازی داده‌ها با سرور
+function syncData() {
+  return fetch('/api/sync', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ message: 'Syncing data after being offline' }) // داده‌هایی که می‌خواهید ارسال کنید
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('[Service Worker] Data synced:', data);
+  })
+  .catch(err => {
+    console.log('[Service Worker] Background sync failed:', err);
+    // در صورت خطا، دوباره سعی می‌کنیم پس از مدت کوتاهی
+    setTimeout(() => {
+      syncData();
+    }, 5000); // دوباره بعد از 5 ثانیه تلاش می‌کنیم
+  });
+}
 
 // اطلاع‌رسانی‌های پوش (Push Notifications)
 self.addEventListener('push', event => {
