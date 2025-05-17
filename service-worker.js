@@ -85,7 +85,7 @@ self.addEventListener('fetch', event => {
 self.addEventListener('sync', event => {
   if (event.tag === 'background-sync') {
     event.waitUntil(
-      syncData()
+      syncData() // فراخوانی تابع همگام‌سازی
     );
   }
 });
@@ -107,8 +107,8 @@ function syncData() {
     console.log('[Service Worker] Background sync failed:', err);
     // در صورت خطا، دوباره سعی می‌کنیم پس از مدت کوتاهی
     setTimeout(() => {
-      syncData();
-    }, 5000); // دوباره بعد از 5 ثانیه تلاش می‌کنیم
+      syncData(); // دوباره بعد از 5 ثانیه تلاش می‌کنیم
+    }, 5000);
   });
 }
 
