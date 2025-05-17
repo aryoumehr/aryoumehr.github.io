@@ -1,72 +1,144 @@
 {
-  "name": "Aryoumehr",
-  "short_name": "Aryoumehr",
+  "name": "86400s",
+  "short_name": "86400s",
+  "id": "86400s-app-v3",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#317EFB",
-  "icons": [
+  "display_override": [
+    "standalone",
+    "fullscreen",
+    "minimal-ui",
+    "window-controls-overlay"
+  ],
+  "orientation": "portrait-primary",
+  "theme_color": "#ae8226",
+  "background_color": "#ae8226",
+  "description": "The content-driven Pet Shop Loopi app for fast access to the latest articles with offline support.",
+  "categories": [
+    "news",
+    "lifestyle",
+    "entertainment"
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "iarc_rating_id": "e84b072d-647b-45f5-808a-f5f49a0b4642",
+  "prefer_related_applications": false,
+  "related_applications": [
     {
-      "src": "assets/pwa/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/pwa/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/pwa/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/pwa/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/pwa/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/pwa/icon-256x256.png",
-      "sizes": "256x256",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/pwa/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/pwa/bookmark-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "assets/pwa/news-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png"
+      "platform": "webapp",
+      "url": "https://86400s.ir/manifest.json"
     }
   ],
-  "screenshots": [
+  "scope_extensions": [
     {
-      "src": "assets/screenshots/1.png",
-      "sizes": "640x480",
-      "type": "image/png"
+      "origin": "https://*.86400s.ir"
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+86400s",
+      "url": "/protocol-handler?url=%s"
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/file-handler",
+      "accept": {
+        "text/*": [".txt", ".md"],
+        "application/json": [".json"]
+      }
+    }
+  ],
+  "handle_links": "preferred",
+  "launch_handler": {
+    "client_mode": "navigate-existing",
+    "route_to": "existing-client-retain"
+  },
+  "icons": [
+    {
+      "src": "/pwa/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "assets/screenshots/2.png",
-      "sizes": "640x480",
-      "type": "image/png"
+      "src": "/pwa/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "assets/screenshots/3.png",
-      "sizes": "640x480",
-      "type": "image/png"
+      "src": "/pwa/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/icons/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/maskable_icon.png",
+      "sizes": "640x640",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/maskable_icon_x48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/maskable_icon_x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/maskable_icon_x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/maskable_icon_x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/maskable_icon_x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/maskable_icon_x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/maskable_icon_x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "https://86400s.ir/assets/monochrome_icon_x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "monochrome"
     }
   ]
 }
