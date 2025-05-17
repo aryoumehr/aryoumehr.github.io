@@ -1,137 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#317EFB">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aryoumehr</title>
+    <meta name="description" content="WP Full-Stack Dev | PWA Specialist | Service Worker Architect | Building scalable, installable web apps with zero-plugin architecture. Founder of xwordpress.">
 
-  <!-- Link to Manifest -->
-  <link rel="manifest" href="manifest.json">
+    <!-- Link to Manifest -->
+    <link rel="manifest" href="/manifest.json">
 
-  <!-- Favicon Icon -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- Favicon Icons (for various screen sizes) -->
+    <link rel="icon" sizes="16x16" href="assets/pwa/icons/icon-16x16.png">
+    <link rel="icon" sizes="32x32" href="assets/pwa/icons/icon-32x32.png">
+    <link rel="icon" sizes="48x48" href="assets/pwa/icons/icon-48x48.png">
+    <link rel="icon" sizes="64x64" href="assets/pwa/icons/icon-64x64.png">
 
-  <!-- External Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+          --primary-color: #ae8226;
+          --secondary-color: #ae8226;
+          --accent-color: #ae8226;
+          --text-color: #f8fafc;
+          --card-bg: rgba(255, 255, 255, 0.1);
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
 
-  <title>Aryoumehr</title>
-  
-  <style>
-    /* Basic CSS to style the page */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+        .offline-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.5s ease-out;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
 
-    main {
-      text-align: center;
-      padding: 20px;
-      border-radius: 10px;
-      background-color: #fff;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 500px;
-    }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    h1 {
-      color: #317EFB;
-      margin-bottom: 10px;
-    }
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
 
-    p {
-      color: #555;
-      margin-bottom: 20px;
-    }
+        h1 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
 
-    /* Style for the install button */
-    #installBtn {
-      background-color: #317EFB;
-      color: white;
-      border: none;
-      padding: 15px 25px;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      display: none;
-      transition: background-color 0.3s ease;
-    }
+        p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
 
-    #installBtn:hover {
-      background-color: #255a8a;
-    }
-  </style>
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .button-horizontal {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-color);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: #7c530b;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        #connection-status {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .status-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ef4444;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        .online .status-icon {
+            background: #10b981;
+            animation: none;
+        }
+
+        #retry-btn {
+            display: none;
+        }
+
+        .offline-features {
+            margin-top: 2rem;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .offline-features h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .offline-features ul {
+            padding-left: 1.2rem;
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        .offline-features li {
+            margin-bottom: 0.3rem;
+        }
+    </style>
 </head>
 <body>
-  <main>
-    <h1>Aryoumehr</h1>
-    <p>Your website is now ready as a PWA.</p>
+    <div class="offline-container">
+        <img src="/favicon.ico" alt="Aryoumehr" class="logo">
+        <h1>You're Offline</h1>
+        <p>Don't worry! You can still access your saved content. We'll automatically restore your connection when possible.</p>
+        
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="window.open('https://instagram.com/aryoumehr', '_self')">
+                <!-- Instagram SVG Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256">
+                    <g fill="currentColor">
+                        <path d="M176 32H80a48 48 0 0 0-48 48v96a48 48 0 0 0 48 48h96a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48m-48 136a40 40 0 1 1 40-40a40 40 0 0 1-40 40" opacity="0.2"/>
+                        <path d="M176 24H80a56.06 56.06 0 0 0-56 56v96a56.06 56.06 0 0 0 56 56h96a56.06 56.06 0 0 0 56-56V80a56.06 56.06 0 0 0-56-56m40 152a40 40 0 0 1-40 40H80a40 40 0 0 1-40-40V80a40 40 0 0 1 40-40h96a40 40 0 0 1 40 40Zm-88-96a48 48 0 1 0 48 48a48.05 48.05 0 0 0-48-48m0 80a32 32 0 1 1 32-32a32 32 0 0 1-32 32m64-84a12 12 0 1 1-12-12a12 12 0 0 1 12 12"/>
+                    </g>
+                </svg>
+                Instagram Page
+            </button>
 
-    <!-- دکمه نصب که تنها زمانی نمایش داده می‌شود که PWA نصب‌پذیر باشد -->
-    <button id="installBtn" aria-label="Install App">Install App</button>
-  </main>
+            <button class="btn btn-secondary" id="retry-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 4v6h-6"></path>
+                    <path d="M1 20v-6h6"></path>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+                Retry Connection
+            </button>
+        </div>
+        
+        <div id="connection-status" class="offline">
+            <span class="status-icon"></span>
+            <span>You're currently offline</span>
+        </div>
 
-  <!-- External Script -->
-  <script src="app.js"></script>
+        <div class="offline-features">
+            <h3>What's available:</h3>
+            <ul>
+                <li>Your saved articles</li>
+                <li>Previous app content</li>
+                <li>Basic app functionality</li>
+                <li>Cached pages you've recently visited</li>
+            </ul>
+        </div>
+    </div>
 
-  <script>
-    // ثبت سرویس‌ورکر
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => {
-          console.log("Service worker registered successfully.");
-        })
-        .catch(err => {
-          console.error("Service worker registration failed: ", err);
-        });
-    }
+    <script>
+        // Connection status
+        function updateConnectionStatus() {
+            const statusElement = document.getElementById('connection-status');
+            const retryBtn = document.getElementById('retry-btn');
 
-    let deferredPrompt;
-
-    // رویداد قبل از نصب
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault(); // جلوگیری از نمایش دیالوگ پیش‌فرض نصب
-      deferredPrompt = e; // ذخیره رویداد نصب
-
-      // نمایش دکمه نصب
-      const installBtn = document.getElementById('installBtn');
-      installBtn.style.display = 'inline-block'; // نمایش دکمه نصب
-
-      // نصب اپلیکیشن زمانی که دکمه نصب کلیک شد
-      installBtn.addEventListener('click', () => {
-        installBtn.disabled = true; // جلوگیری از کلیک دوباره روی دکمه
-        deferredPrompt.prompt(); // نمایش پنجره نصب
-
-        // پس از انتخاب کاربر، رویداد نصب را مدیریت می‌کنیم
-        deferredPrompt.userChoice
-          .then((choiceResult) => {
-            console.log(`User choice: ${choiceResult.outcome}`);
-            if (choiceResult.outcome === 'accepted') {
-              // دکمه نصب مخفی می‌شود پس از نصب
-              installBtn.style.display = 'none';
+            if (navigator.onLine) {
+                statusElement.classList.remove('offline');
+                statusElement.classList.add('online');
+                retryBtn.style.display = 'none';
+            } else {
+                statusElement.classList.remove('online');
+                statusElement.classList.add('offline');
+                retryBtn.style.display = 'block';
             }
-            deferredPrompt = null; // حذف رویداد نصب بعد از انتخاب کاربر
-          })
-          .catch((err) => {
-            console.error('Install prompt failed', err);
-            installBtn.style.display = 'none'; // مخفی کردن دکمه نصب در صورت خطا
-          });
-      });
-    });
+        }
 
-    // بررسی نصب شدن در مرورگر
-    window.addEventListener('appinstalled', (evt) => {
-      console.log('PWA was installed');
-      // دکمه نصب مخفی می‌شود
-      const installBtn = document.getElementById('installBtn');
-      installBtn.style.display = 'none';
-    });
-  </script>
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+
+        // Initialize connection status
+        updateConnectionStatus();
+
+        // Retry connection (reload the page)
+        document.getElementById('retry-btn').addEventListener('click', function() {
+            window.location.reload();
+        });
+
+        // Prompt for PWA installation
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        function promptInstall() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the A2HS prompt');
+                    } else {
+                        console.log('User dismissed the A2HS prompt');
+                    }
+                });
+            }
+        }
+
+        // Add install button logic if needed (e.g., after a delay or specific interaction)
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                promptInstall();
+            }, 3000); // Prompt install after 3 seconds
+        });
+    </script>
 </body>
 </html>
