@@ -57,31 +57,31 @@
   },
   "icons": [
     {
-      "src": "/pwa/icons/icon-72x72.png",
+      "src": "/assets/pwa/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/pwa/icons/icon-96x96.png",
+      "src": "/assets/pwa/icon-96x96.png",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/pwa/icons/icon-128x128.png",
+      "src": "/assets/pwa/icon-128x128.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/pwa/icons/icon-144x144.png",
+      "src": "/assets/pwa//icon-144x144.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/pwa/icons/icon-256x256.png",
+      "src": "/assets/pwa/icon-256x256.png",
       "sizes": "256x256",
       "type": "image/png",
       "purpose": "any"
