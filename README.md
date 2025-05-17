@@ -1,17 +1,17 @@
 # aryoumehr.ir
 
-**aryoumehr** is an open-source project designed to turn the simplest HTML pages into fully installable Progressive Web Apps (PWAs) — 100% free and hosted via GitHub Pages and Cloudflare CDN.
+**aryoumehr** is an open-source project crafted to transform minimal HTML pages into fully installable, offline-capable Progressive Web Apps (PWAs). It’s 100% free to use and deploy — powered by GitHub Pages and optimized via Cloudflare CDN.
 
 ## Features
 
 - Installable PWA (Add to Home Screen)
-- Full offline support using Service Worker
-- Lightweight, responsive design
-- Free static hosting with GitHub Pages
-- Custom domain support via a CNAME file
-- Optimized for high traffic with Cloudflare CDN
+- Offline support using Service Worker
+- Mobile-first, lightweight responsive design
+- Static hosting with GitHub Pages
+- Custom domain support (`CNAME` ready)
+- CDN-level optimization with Cloudflare
 
-## Project Structure
+## Folder Structure
 
 ```
 public/
@@ -39,31 +39,35 @@ public/
 │ │ └── 3.png
 ```
 
+## Getting Started
 
-## How to Set Up
-
-1. Fork or clone the repository.
+1. **Fork** or **clone** this repository.
 2. Add your custom domain to the `CNAME` file.
-3. Enable GitHub Pages in the repository settings (Settings > Pages > Source).
-4. Connect your domain to GitHub via Cloudflare.
-5. Optionally, modify the `manifest.json` and `sw.js` files to suit your project (change icons, colors, etc.).
+3. Go to `Settings > Pages > Source` and enable GitHub Pages.
+4. Configure your domain with GitHub via Cloudflare (DNS > CNAME).
+5. (Optional) Modify `manifest.json` and `sw.js` for branding and functionality.
 
-## How to Test PWA Locally
+## Local PWA Testing
 
-1. Clone or fork the repository to your local machine.
-2. Open `index.html` in a browser (preferably Chrome or Firefox).
-3. Use browser developer tools to simulate mobile devices and inspect how the PWA works.
-4. Use the "Add to Home Screen" option in the browser to install the PWA.
+1. Clone the repo.
+2. Open `index.html` directly in Chrome or Firefox.
+3. Use DevTools to emulate mobile view.
+4. Trigger "Add to Home Screen" to install.
 
 ## Offline Support
 
-The app uses a **service worker** (`sw.js`) to cache the necessary assets and provide offline functionality. If you are working on this project, remember to update the list of assets in the service worker as needed to ensure smooth offline usage.
-
-## Author
-
-**Website:** [aryoumehr.ir](https://aryoumehr.ir)  
-**Email:** aryoumehr@gmail.com
+All key assets are cached via `sw.js` service worker. Make sure to keep this file updated with any new or renamed resources to retain offline functionality.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is released under the [MIT License](LICENSE) with one essential requirement:
+
+**Attribution is mandatory.** You **must credit Aryoumehr** in any redistribution, fork, or derivative of this work.
+
+## Author
+
+Developed with dedication by:
+
+**Aryoumehr**  
+Website: [aryoumehr.ir](https://aryoumehr.ir)  
+Email: [aryoumehr@gmail.com](mailto:aryoumehr@gmail.com)
